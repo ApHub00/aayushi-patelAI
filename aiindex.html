@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aayushi Patel — AI Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Syne:wght@400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg:        #0C0C0A;
+  --bg-2:      #131311;
+  --bg-3:      #1A1A17;
+  --bg-4:      #222220;
+  --line:      rgba(255,255,255,0.07);
+  --line-med:  rgba(255,255,255,0.13);
+  --text:      #E8E4DC;
+  --text-2:    #9A9690;
+  --text-3:    #5E5C58;
+  --amber:     #C8843A;
+  --amber-lt:  #E0A85C;
+  --amber-bg:  rgba(200,132,58,0.08);
+  --amber-bdr: rgba(200,132,58,0.22);
+  --sage:      #5E7A55;
+  --sage-lt:   #8AAE82;
+  --sage-bg:   rgba(94,122,85,0.08);
+  --teal:      #3D7A7A;
+  --teal-bg:   rgba(61,122,122,0.08);
+  --coral:     #B85A48;
+  --coral-bg:  rgba(184,90,72,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ─── GRAIN OVERLAY ──────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.55;
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 99px; }
+
+/* ─── NAV ────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 52px;
+  background: rgba(12,12,10,0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid var(--line);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.nav-logo span { color: var(--amber); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-back {
+  font-size: 12px;
+  color: var(--text-3);
+  text-decoration: none;
+  border: 0.5px solid var(--line-med);
+  padding: 8px 18px;
+  border-radius: 99px;
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+
+.nav-back:hover { border-color: var(--amber); color: var(--amber); }
+
+/* ─── HERO ───────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 52px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ambient glow behind hero text */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 20%; left: -10%;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,132,58,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 28px; height: 0.5px;
+  background: var(--amber);
+}
+
+.hero-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(64px, 8vw, 108px);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 32px;
+  max-width: 780px;
+}
+
+.hero-heading em {
+  font-style: italic;
+  color: var(--amber-lt);
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text-2);
+  max-width: 520px;
+  line-height: 1.75;
+  margin-bottom: 52px;
+  font-weight: 400;
+}
+
+.hero-sub strong { color: var(--text); font-weight: 500; }
+
+.hero-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.hero-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 0.5px solid;
+}
+
+.badge-amber { color: var(--amber-lt); border-color: var(--amber-bdr); background: var(--amber-bg); }
+.badge-sage  { color: var(--sage-lt);  border-color: rgba(94,122,85,0.25); background: var(--sage-bg); }
+.badge-teal  { color: #6AABAB;         border-color: rgba(61,122,122,0.25); background: var(--teal-bg); }
+
+.hero-scroll {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.hero-scroll::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--text-3), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(6px); }
+}
+
+/* ─── DIVIDER ────────────────────────────────────────── */
+.full-divider { border: none; border-top: 0.5px solid var(--line); }
+
+/* ─── SECTION SHARED ─────────────────────────────────── */
+.section { padding: 100px 52px; max-width: 1200px; margin: 0 auto; }
+
+.sec-header {
+  margin-bottom: 64px;
+}
+
+.sec-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.sec-eyebrow::before {
+  content: '';
+  width: 20px; height: 0.5px;
+  background: var(--amber);
+}
+
+.sec-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5vw, 58px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.sec-title em { font-style: italic; color: var(--amber-lt); }
+
+/* ─── FLUENCY SCORES ─────────────────────────────────── */
+.scores-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--line);
+  border: 0.5px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.score-cell {
+  background: var(--bg-2);
+  padding: 32px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.score-cell:hover { background: var(--bg-3); }
+
+.score-cell::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 36px;
+  height: 2px;
+  border-radius: 99px;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  width: 0;
+}
+
+.score-cell.animated::after { width: var(--bar-w); }
+
+.s-amber::after { background: var(--amber); }
+.s-sage::after  { background: var(--sage-lt); }
+.s-teal::after  { background: var(--teal); }
+.s-coral::after { background: #C87A68; }
+
+.score-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.score-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.score-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--amber-lt);
+  line-height: 1;
+}
+
+.score-desc {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.55;
+  max-width: 320px;
+  margin-bottom: 20px;
+}
+
+.score-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.proof-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  background: var(--bg-4);
+  border: 0.5px solid var(--line-med);
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+
+/* ─── AI PROJECTS ────────────────────────────────────── */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 32px;
+  align-items: start;
+  padding: 40px 0;
+  border-bottom: 0.5px solid var(--line);
+  transition: all 0.2s;
+  position: relative;
+}
+
+.project-row::before {
+  content: '';
+  position: absolute;
+  left: -52px; right: -52px;
+  top: 0; bottom: 0;
+  background: var(--bg-2);
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: -1;
+}
+
+.project-row:hover::before { opacity: 1; }
+
+.project-row:first-child { padding-top: 0; }
+.project-row:last-child { border-bottom: none; }
+
+.proj-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+  padding-top: 4px;
+}
+
+.proj-body {}
+
+.proj-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.proj-cat {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.proj-status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-live   { background: #4ADE80; animation: glow-green 2s ease-in-out infinite; }
+.dot-build  { background: var(--amber); animation: glow-amber 2s ease-in-out infinite; }
+.dot-pub    { background: var(--teal); }
+.dot-plan   { background: var(--text-3); }
+
+@keyframes glow-green {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+  50% { box-shadow: 0 0 0 4px rgba(74,222,128,0.2); }
+}
+
+@keyframes glow-amber {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200,132,58,0); }
+  50% { box-shadow: 0 0 0 4px rgba(200,132,58,0.25); }
+}
+
+.proj-status-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+}
+
+.proj-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.proj-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 16px;
+}
+
+.proj-impact {
+  font-size: 13px;
+  color: var(--amber-lt);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  padding-left: 12px;
+  border-left: 1.5px solid var(--amber-bdr);
+}
+
+.proj-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stack-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.07em;
+  color: var(--text-2);
+  background: var(--bg-3);
+  border: 0.5px solid var(--line-med);
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.stack-tag:hover { border-color: var(--amber-bdr); color: var(--amber-lt); }
+
+.proj-link {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  text-decoration: none;
+  border: 0.5px solid var(--line-med);
+  padding: 8px 16px;
+  border-radius: 8px;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 4px;
+  transition: all 0.2s;
+}
+
+.proj-link:hover { border-color: var(--amber); color: var(--amber); }
+
+/* ─── GOVERNANCE CREDENTIAL ──────────────────────────── */
+.credential-block {
+  background: var(--bg-2);
+  border: 0.5px solid var(--line-med);
+  border-left: 2px solid var(--amber);
+  border-radius: 0 16px 16px 0;
+  padding: 40px 44px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 52px;
+  align-items: start;
+  margin-top: 60px;
+}
+
+.cred-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cred-eyebrow::before {
+  content: '';
+  width: 12px; height: 0.5px;
+  background: var(--amber);
+}
+
+.cred-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.cred-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.cred-right {}
+
+.cred-why {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.differentiators { display: flex; flex-direction: column; gap: 10px; }
+
+.diff-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.diff-line {
+  width: 16px; height: 0.5px;
+  background: var(--amber);
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.diff-text {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.diff-text strong { color: var(--text); font-weight: 500; }
+
+/* ─── SELLING POINTS ─────────────────────────────────── */
+.selling-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--line);
+  border: 0.5px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.sell-card {
+  background: var(--bg-2);
+  padding: 36px 32px;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.sell-card:hover { background: var(--bg-3); }
+
+.sell-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 300;
+  color: var(--bg-4);
+  line-height: 1;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.sell-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.sell-body {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+.sell-body em { color: var(--amber-lt); font-style: normal; }
+
+/* ─── TOOLS MATRIX ───────────────────────────────────── */
+.tools-matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.tool-card {
+  border: 0.5px solid var(--line-med);
+  border-radius: 14px;
+  padding: 22px 20px;
+  background: var(--bg-2);
+  transition: all 0.2s;
+}
+
+.tool-card:hover {
+  border-color: var(--amber-bdr);
+  background: var(--bg-3);
+  transform: translateY(-2px);
+}
+
+.tool-icon {
+  font-size: 20px;
+  margin-bottom: 12px;
+  display: block;
+  line-height: 1;
+}
+
+.tool-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.tool-context {
+  font-size: 11px;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+/* ─── CERTS ──────────────────────────────────────────── */
+.certs-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 0.5px solid var(--line);
+}
+
+.cert-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 0.5px solid var(--line-med);
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: var(--bg-2);
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.cert-pill:hover { border-color: var(--amber-bdr); }
+
+.cert-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); }
+
+.cert-name { font-size: 12px; color: var(--text-2); }
+.cert-org  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-3); margin-left: 4px; }
+
+/* ─── CONTACT CTA ────────────────────────────────────── */
+.cta-section {
+  background: var(--bg-2);
+  border-top: 0.5px solid var(--line);
+  border-bottom: 0.5px solid var(--line);
+  padding: 80px 52px;
+  text-align: center;
+}
+
+.cta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cta-label::before, .cta-label::after {
+  content: '';
+  width: 40px; height: 0.5px;
+  background: var(--amber);
+}
+
+.cta-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.cta-heading em { font-style: italic; color: var(--amber-lt); }
+
+.cta-sub {
+  font-size: 14px;
+  color: var(--text-2);
+  max-width: 460px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+
+.cta-primary {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bg);
+  background: var(--amber);
+  padding: 14px 32px;
+  border-radius: 99px;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.cta-primary:hover { background: var(--amber-lt); transform: translateY(-2px); }
+
+.cta-secondary {
+  font-size: 13px;
+  color: var(--text-2);
+  border: 0.5px solid var(--line-med);
+  padding: 14px 32px;
+  border-radius: 99px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.cta-secondary:hover { border-color: var(--amber); color: var(--amber); }
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer {
+  padding: 28px 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 0.5px solid var(--line);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-left {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: var(--text-3);
+}
+
+.footer-right {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+}
+
+/* ─── ANIMATIONS ─────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Aayushi <span>Patel</span></a>
+  <ul class="nav-links">
+    <li><a href="#fluency">AI Fluency</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-back">← Main portfolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">AI Portfolio · Aayushi Patel</div>
+  <h1 class="hero-heading">
+    Not just using<br>AI — <em>building<br>with it</em>
+  </h1>
+  <p class="hero-sub">
+    AI is a <strong>reasoning accelerator</strong>, not a shortcut. Every project here reflects real analytical work augmented by AI — with human judgment driving every decision.
+  </p>
+  <div class="hero-badges">
+    <span class="hero-badge badge-amber">AI building · n8n + Anthropic API</span>
+    <span class="hero-badge badge-sage">AI governance · Published co-author</span>
+    <span class="hero-badge badge-teal">AI usability · CPG + consumer insights</span>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<hr class="full-divider">
+
+<!-- ── SECTION 1: AI FLUENCY SCORES ── -->
+<section id="fluency" class="section">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">01 — where I stand</div>
+    <h2 class="sec-title">AI <em>fluency</em> breakdown</h2>
+  </div>
+
+  <div class="scores-grid reveal">
+
+    <div class="score-cell s-amber" style="--bar-w: 90%">
+      <div class="score-top">
+        <span class="score-name">AI Governance & Research Ethics</span>
+        <span class="score-val">90</span>
+      </div>
+      <p class="score-desc">Co-authored university-wide AI policy for market research. Understands responsible GenAI use, bias risks, and ethical frameworks in consumer research contexts.</p>
+      <div class="score-proof">
+        <span class="proof-tag">USF co-authorship</span>
+        <span class="proof-tag">Adopted institution-wide</span>
+        <span class="proof-tag">Published policy</span>
+      </div>
+    </div>
+
+    <div class="score-cell s-sage" style="--bar-w: 88%">
+      <div class="score-top">
+        <span class="score-name">AI Usability in Real Work</span>
+        <span class="score-val">88</span>
+      </div>
+      <p class="score-desc">Uses AI to do genuine analytical work — CPG research synthesis, SQL debugging, R model validation, consumer insight briefs. Not content generation.</p>
+      <div class="score-proof">
+        <span class="proof-tag">SC Johnson CPG research</span>
+        <span class="proof-tag">AI-synthesized insights</span>
+        <span class="proof-tag">Prompt iteration cycles</span>
+      </div>
+    </div>
+
+    <div class="score-cell s-teal" style="--bar-w: 82%">
+      <div class="score-top">
+        <span class="score-name">Prompt Engineering</span>
+        <span class="score-val">82</span>
+      </div>
+      <p class="score-desc">Designs multi-step prompt chains, structured JSON outputs, and validation logic. Pushes back on incorrect AI outputs and iterates to reach accurate results.</p>
+      <div class="score-proof">
+        <span class="proof-tag">LinkedIn certified</span>
+        <span class="proof-tag">Structured outputs</span>
+        <span class="proof-tag">Output validation</span>
+      </div>
+    </div>
+
+    <div class="score-cell s-coral" style="--bar-w: 62%">
+      <div class="score-top">
+        <span class="score-name">AI App Building</span>
+        <span class="score-val">62</span>
+      </div>
+      <p class="score-desc">Built real apps on the Anthropic API. Actively developing n8n agent workflows. Honest about this being a growing edge — MMM and attribution modeling are next.</p>
+      <div class="score-proof">
+        <span class="proof-tag">Anthropic Messages API</span>
+        <span class="proof-tag">n8n in progress</span>
+        <span class="proof-tag">React + MCP connectors</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- ── SECTION 2: AI PROJECTS ── -->
+<section id="projects" class="section">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">02 — the actual work</div>
+    <h2 class="sec-title">AI <em>projects</em></h2>
+  </div>
+
+  <div class="projects-list">
+
+    <!-- Project 1 -->
+    <div class="project-row reveal">
+      <div class="proj-num">01</div>
+      <div class="proj-body">
+        <div class="proj-meta">
+          <span class="proj-cat">AI Agent · n8n</span>
+          <span class="proj-status-dot dot-build"></span>
+          <span class="proj-status-text">in progress</span>
+        </div>
+        <h3 class="proj-title">Consumer Intelligence Agent</h3>
+        <p class="proj-desc">An autonomous n8n agent that accepts a brand or product name as input, then independently scrapes Reddit sentiment, Google Trends interest data, and competitor SERP signals — before synthesizing everything through Claude into a structured consumer insight brief delivered directly to Notion.</p>
+        <p class="proj-impact">Cuts ~4 hours of manual brand research per run. Demonstrates AI agent orchestration applied directly to a real marketing analytics use case.</p>
+        <div class="proj-stack">
+          <span class="stack-tag">n8n</span>
+          <span class="stack-tag">Claude API</span>
+          <span class="stack-tag">Reddit API</span>
+          <span class="stack-tag">SerpApi</span>
+          <span class="stack-tag">Google Trends</span>
+          <span class="stack-tag">Notion</span>
+          <span class="stack-tag">Webhook triggers</span>
+          <span class="stack-tag">JSON prompt chains</span>
+        </div>
+      </div>
+      <a href="#" class="proj-link">View on GitHub ↗</a>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-row reveal">
+      <div class="proj-num">02</div>
+      <div class="proj-body">
+        <div class="proj-meta">
+          <span class="proj-cat">AI App · Anthropic API</span>
+          <span class="proj-status-dot dot-live"></span>
+          <span class="proj-status-text">complete</span>
+        </div>
+        <h3 class="proj-title">Job Search Command Center</h3>
+        <p class="proj-desc">A full AI-powered application built on the Anthropic Messages API. Takes a job description and resume — scores ATS match percentage, identifies missing keywords, rewrites resume bullets to mirror the JD, generates a tailored cover letter, and logs everything to Notion via MCP integration.</p>
+        <p class="proj-impact">Solved a real personal workflow problem by shipping an actual product — not a demo. ATS scoring + structured rewrite output in one integrated tool.</p>
+        <div class="proj-stack">
+          <span class="stack-tag">Anthropic Messages API</span>
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">Gmail MCP</span>
+          <span class="stack-tag">Notion MCP</span>
+          <span class="stack-tag">Structured prompts</span>
+          <span class="stack-tag">JSON output parsing</span>
+        </div>
+      </div>
+      <a href="#" class="proj-link">Case study ↗</a>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-row reveal">
+      <div class="proj-num">03</div>
+      <div class="proj-body">
+        <div class="proj-meta">
+          <span class="proj-cat">AI Governance · Published</span>
+          <span class="proj-status-dot dot-pub"></span>
+          <span class="proj-status-text">adopted institution-wide</span>
+        </div>
+        <h3 class="proj-title">USF AI Guidelines for Market Research</h3>
+        <p class="proj-desc">Co-authored the University of San Francisco's official AI usage policy for market research with Prof. Stephen Kraus. The guidelines establish responsible GenAI frameworks for consumer research — covering bias risks, output validation, and ethical use in qualitative and quantitative contexts. Adopted as university-wide institutional policy.</p>
+        <p class="proj-impact">Most candidates have a LinkedIn Learning cert. This is a published governance document with institutional adoption — an entirely different credential category.</p>
+        <div class="proj-stack">
+          <span class="stack-tag">AI governance</span>
+          <span class="stack-tag">Research ethics</span>
+          <span class="stack-tag">GenAI policy</span>
+          <span class="stack-tag">LLM limitations</span>
+          <span class="stack-tag">Qualitative research</span>
+          <span class="stack-tag">University of San Francisco</span>
+        </div>
+      </div>
+      <a href="#" class="proj-link">Read document ↗</a>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="project-row reveal">
+      <div class="proj-num">04</div>
+      <div class="proj-body">
+        <div class="proj-meta">
+          <span class="proj-cat">AI Usability · CPG Research</span>
+          <span class="proj-status-dot dot-live"></span>
+          <span class="proj-status-text">ongoing · SC Johnson</span>
+        </div>
+        <h3 class="proj-title">AI-Augmented CPG Field Research</h3>
+        <p class="proj-desc">Applied LLMs to synthesize multi-source CPG data at SC Johnson — cross-referencing in-store shelf observations at Target and Whole Foods with social listening signals, competitor pricing data, and consumer sentiment. AI used as an analytical accelerator, not a replacement for field judgment.</p>
+        <p class="proj-impact">Demonstrates the critical distinction: AI as a synthesis layer on top of primary research, not a substitute for it. The insight quality comes from the researcher, not the model.</p>
+        <div class="proj-stack">
+          <span class="stack-tag">Claude</span>
+          <span class="stack-tag">Prompt engineering</span>
+          <span class="stack-tag">CPG research</span>
+          <span class="stack-tag">Retail field research</span>
+          <span class="stack-tag">Consumer insights</span>
+          <span class="stack-tag">Competitive intelligence</span>
+        </div>
+      </div>
+      <a href="#" class="proj-link">Read writeup ↗</a>
+    </div>
+
+    <!-- Project 5 -->
+    <div class="project-row reveal">
+      <div class="proj-num">05</div>
+      <div class="proj-body">
+        <div class="proj-meta">
+          <span class="proj-cat">AI Building · In Roadmap</span>
+          <span class="proj-status-dot dot-plan"></span>
+          <span class="proj-status-text">planned · next build</span>
+        </div>
+        <h3 class="proj-title">AI Marketing Brief Generator</h3>
+        <p class="proj-desc">An n8n + Claude API tool that takes a campaign goal and target audience as inputs, then outputs a full structured creative brief — consumer personas, recommended channels, KPIs, messaging angles, and a competitive context summary. Designed to demonstrate how marketing teams can accelerate strategy work with AI.</p>
+        <p class="proj-impact">Bridges the gap between AI building and marketing strategy — showing AI as a thinking partner for brand teams, not just an automation layer.</p>
+        <div class="proj-stack">
+          <span class="stack-tag">n8n</span>
+          <span class="stack-tag">Claude API</span>
+          <span class="stack-tag">Structured prompt chains</span>
+          <span class="stack-tag">Marketing strategy</span>
+          <span class="stack-tag">Coming soon</span>
+        </div>
+      </div>
+      <span class="proj-link" style="cursor:default;opacity:0.4;">In development</span>
+    </div>
+
+  </div>
+
+  <!-- Governance credential block -->
+  <div class="credential-block reveal">
+    <div>
+      <div class="cred-eyebrow">the credential that sets this apart</div>
+      <h3 class="cred-title">Why the USF co-authorship matters more than any certification</h3>
+      <p class="cred-desc">Every marketing analytics candidate in 2026 will list a GenAI certification. Almost none will have co-authored a published AI governance document adopted at an institutional level. The USF Guidelines represent governance-tier AI literacy — the kind senior research leaders and brand strategists care about when building AI-integrated teams.</p>
+    </div>
+    <div class="cred-right">
+      <div class="cred-why">What it signals to hiring managers</div>
+      <div class="differentiators">
+        <div class="diff-item">
+          <div class="diff-line"></div>
+          <p class="diff-text"><strong>Not just a user</strong> — understands AI well enough to write policy around its responsible use in research</p>
+        </div>
+        <div class="diff-item">
+          <div class="diff-line"></div>
+          <p class="diff-text"><strong>Institutional credibility</strong> — peer-reviewed and adopted, not self-declared expertise</p>
+        </div>
+        <div class="diff-item">
+          <div class="diff-line"></div>
+          <p class="diff-text"><strong>Research ethics depth</strong> — can navigate AI limitations, bias, and validation in a professional research context</p>
+        </div>
+        <div class="diff-item">
+          <div class="diff-line"></div>
+          <p class="diff-text"><strong>Ready for AI-integrated teams</strong> — not just adapting to AI, but helping define how teams should use it</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="full-divider">
+
+<!-- ── SECTION 3: WHY THIS IS DIFFERENT ── -->
+<section class="section">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">03 — the positioning</div>
+    <h2 class="sec-title">What makes this <em>different</em></h2>
+  </div>
+
+  <div class="selling-grid reveal">
+    <div class="sell-card">
+      <div class="sell-num">01</div>
+      <h3 class="sell-title">AI that does real analytical work</h3>
+      <p class="sell-body">The CPG research, the consumer insight briefs, the SQL debugging — all of it uses AI as a <em>reasoning layer on top of domain expertise</em>, not as a content generator. That distinction is what analytical hiring managers look for.</p>
+    </div>
+    <div class="sell-card">
+      <div class="sell-num">02</div>
+      <h3 class="sell-title">Shipped products, not experiments</h3>
+      <p class="sell-body">The Job Search Command Center is a <em>functioning app with real integrations</em>. The Consumer Intelligence Agent is in active development. These are products built to solve real problems — not portfolio demos.</p>
+    </div>
+    <div class="sell-card">
+      <div class="sell-num">03</div>
+      <h3 class="sell-title">Knows where AI breaks</h3>
+      <p class="sell-body">Across SQL sessions, market research, and agent building — AI outputs were <em>pushed back on, validated, and corrected</em>. "I use AI critically" is a more credible signal than "I use AI extensively."</p>
+    </div>
+    <div class="sell-card">
+      <div class="sell-num">04</div>
+      <h3 class="sell-title">The bridge between data & strategy</h3>
+      <p class="sell-body">Ethnographic research training + CPG field experience + AI tool building + SQL/R/Python stack. <em>One of very few candidates</em> who can translate between a data science team and a marketing strategy team.</p>
+    </div>
+    <div class="sell-card">
+      <div class="sell-num">05</div>
+      <h3 class="sell-title">Governance-tier AI literacy</h3>
+      <p class="sell-body">A published co-author on AI policy isn't "familiar with AI." It's someone who <em>understands it deeply enough to write the rules</em> for how a research organization should use it.</p>
+    </div>
+    <div class="sell-card">
+      <div class="sell-num">06</div>
+      <h3 class="sell-title">GEO-aware & search-forward</h3>
+      <p class="sell-body">Certified in SEO & AI Search Essentials with working knowledge of Generative Engine Optimization — <em>the skill most analytics candidates don't yet have</em> but roles at Ulta, Pinterest, and Google are starting to require.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- ── SECTION 4: TOOLS ── -->
+<section id="tools" class="section">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">04 — the toolkit</div>
+    <h2 class="sec-title">AI tools <em>&amp; platforms</em></h2>
+  </div>
+
+  <div class="tools-matrix reveal">
+    <div class="tool-card">
+      <span class="tool-icon">◈</span>
+      <div class="tool-name">Claude (Anthropic)</div>
+      <div class="tool-context">Research synthesis, prompt workflows, API app development, analytical reasoning partner</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">⚡</span>
+      <div class="tool-name">n8n</div>
+      <div class="tool-context">AI agent orchestration, multi-node workflow automation, webhook triggers, API chaining</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">✦</span>
+      <div class="tool-name">Anthropic Messages API</div>
+      <div class="tool-context">AI app development, structured JSON outputs, MCP integrations, multi-turn conversations</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">◉</span>
+      <div class="tool-name">SEMrush AI Tools</div>
+      <div class="tool-context">GEO analysis, AI search visibility, keyword intelligence, AI Overview monitoring</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">▲</span>
+      <div class="tool-name">Reddit API</div>
+      <div class="tool-context">Social listening data collection, brand sentiment scraping, consumer voice analysis</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">⬡</span>
+      <div class="tool-name">SerpApi</div>
+      <div class="tool-context">Google Trends data, SERP competitive signals, AI-overview presence tracking</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">◆</span>
+      <div class="tool-name">Notion MCP</div>
+      <div class="tool-context">AI workflow outputs, automated brief delivery, structured database integration</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">✧</span>
+      <div class="tool-name">Gmail MCP</div>
+      <div class="tool-context">AI-generated outreach integration, automated email drafts from analytical outputs</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">❋</span>
+      <div class="tool-name">ChatGPT</div>
+      <div class="tool-context">Ideation, content drafting, comparative model testing, rapid research queries</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">◎</span>
+      <div class="tool-name">Gemini</div>
+      <div class="tool-context">Google ecosystem tasks, multimodal analysis, data interpretation, search-adjacent AI queries</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">✿</span>
+      <div class="tool-name">Canva AI</div>
+      <div class="tool-context">AI-assisted visual design, brand presentations, social content creation, Magic Write</div>
+    </div>
+  </div>
+
+  <!-- Certs -->
+  <div class="certs-row reveal">
+    <div class="cert-pill">
+      <div class="cert-dot"></div>
+      <span class="cert-name">Gen AI & Prompt Engineering</span>
+      <span class="cert-org">LinkedIn · 2026</span>
+    </div>
+    <div class="cert-pill">
+      <div class="cert-dot"></div>
+      <span class="cert-name">SEO & AI Search Essentials</span>
+      <span class="cert-org">SEMrush · 2026</span>
+    </div>
+    <div class="cert-pill">
+      <div class="cert-dot"></div>
+      <span class="cert-name">AI Guidelines Co-Author</span>
+      <span class="cert-org">USF · 2026</span>
+    </div>
+    <div class="cert-pill">
+      <div class="cert-dot"></div>
+      <span class="cert-name">Social Media & AI Content</span>
+      <span class="cert-org">SEMrush · 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div id="contact" class="cta-section">
+  <div class="cta-label">available june 2026</div>
+  <h2 class="cta-heading">Let's build something<br><em>worth talking about</em></h2>
+  <p class="cta-sub">Looking for marketing analytics and consumer insights roles where AI fluency is a genuine advantage — not just a checkbox.</p>
+  <div class="cta-buttons">
+    <a href="mailto:aayushi@usfca.edu" class="cta-primary">Get in touch →</a>
+    <a href="https://linkedin.com/in/aayushipatel" target="_blank" class="cta-secondary">LinkedIn ↗</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-left">Aayushi Patel — AI Portfolio</span>
+  <span class="footer-right">M.S. Marketing Intelligence · USF 2026 · San Francisco</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 90);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Score bar animations
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('animated'), 200);
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.score-cell').forEach(el => barObserver.observe(el));
+
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 140) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : '';
+    });
+  });
+</script>
+</body>
+</html>
